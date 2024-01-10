@@ -96,7 +96,6 @@
 							<th><fmt:formatDate value="${ account.birth }"
 									pattern="yyyy-MM-dd " /></th>
 							<th scope="row">${ account.email}</th>
-
 							<th scope="row">
 								<form method="post" action="./${ account.id} ">
 									<button type="submit" class="btn btn-secondary">用戶明細</button>
