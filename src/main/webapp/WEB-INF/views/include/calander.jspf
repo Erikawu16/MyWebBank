@@ -1,0 +1,74 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>雙日曆示例</title>
+<!-- 引入 Flatpickr 库的 CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+
+</head>
+<body>
+	<div class="container vw-50 my-5 ">
+    <h2 class="text-center mb-3">交易紀錄查詢區間</h2>
+    <form method="Get" action="./searchrecorder" onsubmit="return validateForm()">
+        <div class="row text-center">
+            <div class="col-md-6 col-lg-4 form-group">
+                <label for="startDate" class="fs-5">開始日期:</label>
+                <input type="text" id="startDate" name="startDate" >
+            </div>
+            <div class="col-md-6 col-lg-4 form-group">
+                <label for="endDate" class="fs-5">結束日期:</label>
+                <input type="text" id="endDate" name="endDate" >
+            </div>
+            <div class="col-md-12 col-lg-4  mt-lg-0 d-flex align-items-center justify-content-center mt-3 ">
+                <button type="submit" class="btn btn-outline-secondary mx-2 mb-0">Search</button>
+                <button type="button" class="btn btn-secondary mx-2 mb-0"
+                    onclick="window.location.href='/MyWebBank/mvc/mybank/customer/myrecorder'">查看全部記錄</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+	<!-- 引入 Flatpickr 库和相依性的 JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+	<script>
+		const today = new Date(); // 获取今天的日期
+
+		const startDatePicker = flatpickr("#startDate", {
+			dateFormat : "Y-m-d",
+			maxDate : today, // 设置开始日期不大于今天
+			defaultDate : null, // 不设置默认日期
+			onChange : function(selectedDates, dateStr) {
+				endDatePicker.set("minDate", dateStr); // 更新结束日期选择器的最小日期为选择的开始日期
+			}
+		});
+
+		const endDatePicker = flatpickr("#endDate", {
+			dateFormat : "Y-m-d",
+			maxDate : today, // 设置结束日期不大于今天
+			minDate : today, // 设置最小日期为今天
+			onChange : function(selectedDates, dateStr) {
+				startDatePicker.set("maxDate", dateStr); // 更新开始日期选择器的最大日期为选择的结束日期
+			}
+		});
+
+		function validateForm() {
+			var startDate = document.getElementById("startDate").value;
+			var endDate = document.getElementById("endDate").value;
+
+			// 檢查如果開始日期和結束日期都是空的，阻止表單提交
+			if (startDate === "" || endDate === "") {
+				alert("請輸入開始日期及結束日期");
+				return false;
+			}
+		}
+	</script>
+</body>
+</html>

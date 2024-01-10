@@ -1,0 +1,89 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MyAccount</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+.navbar {
+	background-color: rgb(225, 135, 127);
+	z-index: 1000; 
+}
+
+.nav-item:hover {
+	background-color: rgb(141, 171, 217);
+	border-radius: 5px;
+	color: black !important;
+}
+
+.body {
+	padding-top: 20px;
+}
+
+.page-title {
+	margin-top: 80px;
+}
+
+.navbar {
+	padding: 0.5rem !important;
+}
+</style>
+</head>
+
+<body>
+	<nav
+		class="navbar navbar-expand-lg navbar-light position-fixed top-0 w-100">
+		<div class="container-fluid">
+			<a class="navbar-brand text-light ms-1">MyBank商業銀行</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon d-lg-none "></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item px-2"><a class="nav-link text-white"
+						href="./myaccount"><i class="bi bi-person-badge"></i>帳戶總覽</a></li>
+					
+					<li class="nav-item px-2"><a class="nav-link text-white"
+						href="./myexcahange"><i class="bi bi-currency-exchange"></i>我要換匯</a></li>
+					
+					<li class="nav-item px-2"><a class="nav-link text-white"
+						href="./myrecorder"><i class="bi bi-journal-bookmark-fill"></i>交易查詢</a></li>
+					
+					<li class="nav-item px-2"><a class="nav-link text-white"
+						href="./mydata"><i class="bi bi-person-circle "></i>會員專區</a></li>
+					
+
+					
+					<li class="nav-item px-2 d-lg-none">
+						<i
+							class="bi bi-box-arrow-right nav-link text-white  d-lg-none "
+							role="button" onclick="window.location.href='../logout'">會員登出</i></li>
+
+				</ul>
+
+			</div>
+
+			
+			
+			<i class="bi bi-box-arrow-right nav-link text-white d-none d-lg-block"
+				role="button" onclick="window.location.href='../logout'">Logout</i>
+
+
+		</div>
+	</nav>
+</body>
+</html>

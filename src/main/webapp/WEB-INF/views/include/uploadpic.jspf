@@ -1,0 +1,41 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="sp" uri="http://www.springframework.org/tags/form"%>
+<div class="border border-3 rounded p-4 mb-5">
+	<div class="col-12 ">
+		<div style="width: 300px; height: 300px;">
+			<img src="" alt="" style="max-width: 100%; max-height: 100%;">
+		</div>
+		<label class="btn btn-outline-primary w-100 my-3"> 上傳照片 <input
+			type="file" id="upfile" multiple="multiple"
+			onchange="imgChange(this)" class="upfile d-none"
+			accept=".jpg, .jpeg, .png" >
+		</label>
+
+		<ul style="list-style-type: disc;">
+			<li>請上傳身分證正反面照片</li>
+			<li>每張照片容量最高 1M</li>
+			<li>照片寬度最小 1000px</li>
+			<li>檔案類型必須是 jpg、png</li>
+		</ul>
+
+
+	</div>
+</div>
+<script>
+	function imgChange(img) {
+		const reader = new FileReader();
+		reader.onload = function(ev) {
+			var imgFile = ev.target.result;
+			//轉base64
+			document.querySelector("img").src = ev.target.result;
+
+			const base64String = ev.target.result.split(',')[1];
+			console.log(base64String);
+			document.getElementById('imgBase64').value = base64String;
+		}
+
+		reader.readAsDataURL(img.files[0]);//顯示圖片
+	}
+</script>

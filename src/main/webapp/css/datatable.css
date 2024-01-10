@@ -1,0 +1,49 @@
+.dataTables_wrapper .dataTables_length {
+	float: left;
+	margin-right: 15px;
+}
+
+.dataTables_wrapper .dataTables_length select {
+	border: 1px solid #aaa;
+	border-radius: 3px;
+	padding: 5px;
+	background-color: transparent;
+
+}
+
+.dataTables_wrapper .dataTables_filter {
+	float: right;
+	text-align: right;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+	border: 1px solid #aaa;
+	border-radius: 3px;
+	padding: 5px;
+	background-color: transparent;
+	margin-left: 3px;
+}
+
+table.dataTable {
+	margin-top: 15px;
+
+	
+
+}
+
+
+#myTable_paginate {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+	margin-bottom: 80px;
+}
+
+.paginate_button {
+	margin-left: 20px;
+	cursor: pointer;
+}
+
+.dataTables_filter, .dt-buttons, .dataTables_filter {
+	margin-top: 10px;
+}

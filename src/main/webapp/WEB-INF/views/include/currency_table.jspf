@@ -1,0 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sp" uri="http://www.springframework.org/tags/form"%>
+
+
+<style>
+</style>
+
+
+<div
+	class="mx-5 mt-3 border table-responsive table-bordered w-75 mx-auto">
+
+	<p style="text-align: right;" class="my-auto">>>查詢時間 :
+		${searchTime}</p>
+	<table class="table table-hover table align-middle ">
+		<thead>
+
+			<tr class="table-secondary text-center">
+				<th scope="col" colspan="1">幣別</th>
+				<th scope="col" colspan="2">現金匯率</th>
+				<th scope="col" colspan="2">即期匯率</th>
+
+			</tr>
+			<tr class="table-secondary text-center">
+				<th scope="col" class="hidden"></th>
+				
+				<th scope="col">本行買入</th>
+				<th scope="col">本行賣出</th>
+				<th scope="col">本行買入</th>
+				<th scope="col">本行賣出</th>
+
+			</tr>
+
+
+
+		</thead>
+		<tbody class="text-center">
+
+			<c:forEach var="currency" items="${currency}">
+				<c:if test="${currency.currencyId ne 1}">
+					<tr>
+						<td>${currency.currencyname}</td>
+						
+						<td>${currency.cashin}</td>
+						<td>${currency.cashout}</td>
+						<td>${currency.bankin}</td>
+						<td>${currency.bankout}</td>
+					</tr>
+				</c:if>
+			</c:forEach>
+
+		</tbody>
+	</table>
+</div>

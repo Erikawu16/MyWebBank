@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<div class="col-7 w-75 mx-auto">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">編號</th>
+					<th scope="col">申請姓名</th>
+					<th scope="col">申請時間</th>
+					<th scope="col">申請帳號</th>
+					<th scope="col">資料明細</th>
+					<th scope="col">審核結果</th>
+				</tr>
+			</thead>
+			<tbody>
+			<c:forEach var="member" items="${ Members }">
+				<tr>
+					<th scope="row">1</th>
+					<td>${ member.name }</td>
+					<td>2023/11/23 <br>10:20:53
+					</td>
+					<td>000-000-000-000</td>
+					<td><button type="button" class=" btn btn-secondary">明細</button></td>
+					<td>通過</td>
+				</tr>
+				
+				
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
