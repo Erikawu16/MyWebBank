@@ -38,7 +38,7 @@
 	src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
 <script type="text/javascript"
 	src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-	<link rel="stylesheet" href="/MyWebBank/css/datatable.css">
+<link rel="stylesheet" href="/MyWebBank/css/datatable.css">
 <style>
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
 	background-color: #97a9c3;
@@ -80,34 +80,38 @@
 	<div class="cotainer ">
 
 		<div class="col w-75 mx-auto">
-			<h2 class="text-center fw-bold"><i class="bi bi-person-fill-slash"></i>審核未通過名單</h2>
+			<h2 class="text-center fw-bold">
+				<i class="bi bi-person-fill-slash"></i>審核未通過名單
+			</h2>
 			<table class="table" id="myTable">
 
 				<thead>
 					<tr>
-					<th scope="col">NO.</th>
-						
+						<th scope="col">NO.</th>
+
 						<th scope="col">用戶姓名</th>
 						<th scope="col">申請編號</th>
 						<th scope="col">申請時間</th>
 						<th scope="col">身份證字號</th>
 						<th scope="col">出生日期</th>
-						
+
 						<th scope="col">未通過原因</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="user"  items="${users}" varStatus="loop">
+					<c:forEach var="user" items="${users}" varStatus="loop">
 						<tr>
 							<td>${loop.index + 1}</td>
-							
+
 							<th scope="row">${user.username }</th>
 							<th scope="row">${ user.id }</th>
-							<th scope="row">${user.registDate }</th>
+							<th><fmt:formatDate value="${ user.registDate  }"
+									pattern="yyyy-MM-dd " /></th>
+
 							<th scope="row">${user.userId}</th>
-							<th scope="row">${user.birth}</th>
-							<th scope="row">${user.falsereason }
-							</th>
+							<th><fmt:formatDate value="${user.birth}"
+									pattern="yyyy-MM-dd " /></th>
+							<th scope="row">${user.falsereason }</th>
 
 						</tr>
 

@@ -87,9 +87,14 @@
 							<!-- This will display the item number -->
 
 							<th scope="row">${ account.username }</th>
-							<th scope="row">${ account.registDate }</th>
+							
+							<th><fmt:formatDate value="${ account.registDate }"
+									pattern="yyyy-MM-dd " /></th>
+							
+							
 							<th scope="row">${ account.userId}</th>
-							<th scope="row">${ account.birth}</th>
+							<th><fmt:formatDate value="${ account.birth }"
+									pattern="yyyy-MM-dd " /></th>
 							<th scope="row">${ account.email}</th>
 
 							<th scope="row">
