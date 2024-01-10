@@ -36,8 +36,7 @@
 		<h2 class="text-center fw-bold"><i class="bi bi-journal-check "></i> 會員資料分析報告</h2>
 	</div>
 	<div class="container col-12 mt-2">
-<input type="hidden" value="${menAmount}"  id="menAmount">
-<input type="hidden" value="${womenAmount}"  id="womenAmount">
+
 
 
 		<div class="border col-4 ">
@@ -79,15 +78,11 @@
 	google.charts.setOnLoadCallback(drawChart2);
 	<!--會員人數成長趨勢-->
 	<!--男女比例-->		
-	var womenAmount = parseInt(document.getElementById("womenAmount").value, 10);
-	console.log(womenAmount);
-	
-	var menAmount = parseInt(document.getElementById("menAmount").value, 10);
-	console.log(menAmount);
+
 	
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([ [ '性別', '人數' ],
-				[ '女性', womenAmount], [ '男性', menAmount],
+				[ '女性', ${womenAmount}], [ '男性',${menAmount}],
 		]);
 		var options = {
 			title : ''
@@ -107,8 +102,8 @@
 	<!--年齡分布圖-->
 	function drawStuff() {
 		var data = new google.visualization.arrayToDataTable([
-				[ 'Move', 'Percentage' ], [ "18-29 歲", age1 ], [ "30-39 歲", age2 ],
-				[ "40-49 歲", age3 ], [ "50-59 歲", age4 ], [ "60 歲以上", age5 ] ]);
+				[ 'Move', 'Percentage' ], [ "18-29 歲", ${age1} ], [ "30-39 歲", ${age2} ],
+				[ "40-49 歲",${age3}], [ "50-59 歲", ${age4} ], [ "60 歲以上", ${age5} ] ]);
 
 		var options = {
 			width : 800,
