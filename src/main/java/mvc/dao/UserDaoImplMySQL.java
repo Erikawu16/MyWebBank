@@ -40,8 +40,8 @@ public class UserDaoImplMySQL implements UserDao {
 // 1.註冊會員加入資料庫
 	@Override
 	public int addUser(User user) {
-		String sql = "INSERT INTO user (username,userId,  email,password, birth,sexId,typeIds,ImgContent)"
-				+ " values(?, ?, ?,?,?,?,?,?)";
+		String sql = "INSERT INTO user (username,userId,  email,password, birth,sexId,typeIds,ImgContent,registDate)"
+				+ " values(?, ?, ?,?,?,?,?,?,?)";
 
 		final String KEY = KeyUtil.getSecretKey();
 		SecretKeySpec aesKeySpec = new SecretKeySpec(KEY.getBytes(), "AES");
@@ -53,7 +53,7 @@ public class UserDaoImplMySQL implements UserDao {
 		}
 		String encryptedPasswordECBBase64 = Base64.getEncoder().encodeToString(encryptedPasswordECB);
 		int rowcount = jdbcTemplate.update(sql, user.getUsername(), user.getUserId(), user.getEmail(),
-				encryptedPasswordECBBase64, user.getBirth(), user.getSexId(), user.getTypeId(), user.getImgContent());
+				encryptedPasswordECBBase64, user.getBirth(), user.getSexId(), user.getTypeId(), user.getImgContent(),user.getRegistDate());
 		return rowcount;
 	}
 

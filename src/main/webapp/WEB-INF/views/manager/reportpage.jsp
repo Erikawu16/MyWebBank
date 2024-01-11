@@ -84,6 +84,7 @@
 		var data = google.visualization.arrayToDataTable([ [ '性別', '人數' ],
 				[ '女性', ${womenAmount}], [ '男性',${menAmount}],
 		]);
+		
 		var options = {
 			title : ''
 		};

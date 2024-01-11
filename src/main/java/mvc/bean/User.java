@@ -22,12 +22,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.Gson;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 @Data
 // 對應 spring form 的表單資訊
+@ApiModel(description = "用戶資料")
 public class User {
 	private Integer id; // 序號
-
+	
 	@NotEmpty(message = "{user.username.noetmpty}")
 	@Size(min = 3, max = 10, message = "{user.username.size}")
 	@Pattern(regexp = "^[\\u4e00-\\u9fa5]{3,10}$", message = "{user.username.chinese}")

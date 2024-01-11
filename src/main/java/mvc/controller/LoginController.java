@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.swagger.annotations.ApiOperation;
 import mvc.bean.Manager;
 import mvc.bean.SexData;
 import mvc.bean.StatusData;
@@ -94,7 +95,7 @@ public class LoginController {
 		// 將影像串流回寫給 client
 		ImageIO.write(img, "PNG", response.getOutputStream());
 	}
-
+	@ApiOperation("登入首頁")
 	// 登入首頁
 	@GetMapping(value = { "/login", "/", "/login/" })
 	public String loginPage(Model model) {
