@@ -25,7 +25,6 @@ public interface ManagerDao {
 	
 	List<Integer> findUserAgeList();
 	
-	List<Integer> findUserRegistList();
 	// 1.更新會員
 	int updateUserById(Integer id, User user);
 

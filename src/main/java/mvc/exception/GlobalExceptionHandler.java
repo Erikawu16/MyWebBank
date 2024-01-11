@@ -30,19 +30,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-//    // 捕捉所有類型的 Exception
-//    @ExceptionHandler(NoResourceFoundException.class)
-//    public String handleNoResourceFoundException(NoResourceFoundException ex, Model model) {
-//        model.addAttribute("errorMessage", "無此網頁");
-//        return "error";
-//    }
-//    
-//    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-//    public String handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException ex, Model model) {
-//        model.addAttribute("errorMessage", "名稱重複");
-//        return "error";
-//    }
-
 	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public String handleExceptionDataIntegrityViolation(Exception ex, Model model) {

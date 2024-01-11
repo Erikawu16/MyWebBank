@@ -128,23 +128,7 @@ public class ManagerController {
 		model.addAttribute("age4", dao.findUserAgeList().get(3));// 50-59
 		model.addAttribute("age5", dao.findUserAgeList().get(4));// 60
 		
-		
-		
-		
-//		result.add(rs.getInt("2023-1"));
-//		result.add(rs.getInt("2023-2"));
-//		result.add(rs.getInt("2023-3"));
-//		result.add(rs.getInt("2023-4"));
-//		result.add(rs.getInt("2023-5"));
-//		result.add(rs.getInt("2023-6"));
-//		result.add(rs.getInt("2023-7"));
-//		result.add(rs.getInt("2023-8"));
-//		result.add(rs.getInt("2023-9"));
-//		result.add(rs.getInt("2023-10"));
-//		result.add(rs.getInt("2023-11"));
-//		result.add(rs.getInt("2023-12"));
-//		result.add(rs.getInt("2024-1"));
-		
+	
 
 		if (manager.getLevelId().equals(1)) {
 			model.addAttribute("pendingItemCount", dao.getPendingCount());

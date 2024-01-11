@@ -56,12 +56,7 @@
 			<div id="top_x_div" style="height: 400px;"></div>
 		</div>
 	</div>
-	<div class="col-12 border mb-5">
-		<!--會員人數成長趨勢-->
-		<h4 class="text-center mt-5">【會員成長趨勢】</h4>
-		<div id="line_top_x" class="text-center"
-			style="width: 800px; height: 400px;"></div>
-	</div>
+
 
 
 
@@ -122,41 +117,7 @@
 		chart.draw(data, google.charts.Bar.convertOptions(options));
 	};
 
-	<!--會員人數成長趨勢-->
-	function drawChart2() {
-		var data = new google.visualization.DataTable();
-		data.addColumn('number', 'mounth');
-		data.addColumn('number', '每月註冊成功會員人數');
 	
-
-		data.addRows([ [ 1, 30 ], [ 2, 50 ],
-				[ 3, 75 ], [ 4, 54 ],
-				[ 5,89 ], [ 6,108 ],
-				[ 7,230], [ 8, 245 ],
-				[ 9, 298 ], [ 10,265 ],
-				[ 11,323 ], [ 12,309 ] ]);
-
-		var options = {
-			chart : {
-				title : '',
-
-			},
-			width : 900,
-			height : 400,
-			axes : {
-				x : {
-					0 : {
-						side : 'top'
-					}
-				}
-			}
-		};
-
-		var chart = new google.charts.Line(document
-				.getElementById('line_top_x'));
-
-		chart.draw(data, google.charts.Line.convertOptions(options));
-	}
 </script>
 </body>
 </html>
