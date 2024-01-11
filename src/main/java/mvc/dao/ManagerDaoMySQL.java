@@ -55,14 +55,14 @@ public class ManagerDaoMySQL implements ManagerDao {
         String sql = "SELECT COUNT(*) AS count_status_1 FROM my_bank.user WHERE statusId = 1";
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
-    
+  //查詢會會員性別數量
     @Override
     public int getUserSexCount(Integer sexid) {
         String sql = "SELECT COUNT(*) AS count_Sex_1 FROM my_bank.user WHERE SexId = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class,sexid);
     }
  
-    
+    //查詢會會員年齡分布
     @Override
     public List<Integer> findUserAgeList() {
         String sql = "SELECT " +
@@ -95,6 +95,40 @@ public class ManagerDaoMySQL implements ManagerDao {
         });
 
         return ageCounts;
+    }
+    @Override
+    public List<Integer> findUserRegistList() {
+        String sql = "SELECT CONCAT(YEAR(registDate), '-', MONTH(registDate)) AS yearmonth, " +
+                "COUNT(*) AS registration_count " +
+                "FROM user " +
+                "GROUP BY CONCAT(YEAR(registDate), '-', MONTH(registDate)) " +
+                "ORDER BY yearmonth";
+    	
+    	List<Integer> RegisterCounts = jdbcTemplate.query(sql, new ResultSetExtractor<List<Integer>>() {
+    		@Override
+    		public List<Integer> extractData(ResultSet rs) throws SQLException, DataAccessException {
+    			List<Integer> result = new ArrayList<>();
+    			if (rs.next()) {
+    				result.add(rs.getInt("2023-1"));
+    				result.add(rs.getInt("2023-2"));
+    				result.add(rs.getInt("2023-3"));
+    				result.add(rs.getInt("2023-4"));
+    				result.add(rs.getInt("2023-5"));
+    				result.add(rs.getInt("2023-6"));
+    				result.add(rs.getInt("2023-7"));
+    				result.add(rs.getInt("2023-8"));
+    				result.add(rs.getInt("2023-9"));
+    				result.add(rs.getInt("2023-10"));
+    				result.add(rs.getInt("2023-11"));
+    				result.add(rs.getInt("2023-12"));
+    				result.add(rs.getInt("2024-1"));
+
+    			}
+    			return result;
+    		}
+    	});
+    	
+    	return RegisterCounts;
     }
 
 	

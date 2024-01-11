@@ -45,55 +45,7 @@ public class ManagerController {
 	@Autowired
 	private DataDao dataDao;
 
-	@GetMapping("/add/10")
-	@ResponseBody
-	public String addUser() {
-		Faker faker = new Faker();
-		Random random = new Random();
-		for (int i = 0; i <= 10; i++) {
-			User user = new User();
 
-			String userId = generateUserId();
-			
-			user.setUsername(faker.name().fullName());
-			user.setUserId(userId);
-			user.setPassword(faker.internet().password());
-			user.setEmail(faker.internet().emailAddress());
-			user.setBirth(faker.date().birthday());
-			user.setSexId(random.nextInt(2)+1); // Assuming 0 for male, 1 for female
-			user.setTypeId(random.nextInt(3)+1);
-			
-			 user.setRegistDate(generateRandomDateIn2023());
-
-            System.out.println(user);
-            userdao.addUser(user);
-		} 
-		
-		return "ok";
-	}
-	
-	   private static Date generateRandomDateIn2023() {
-	        Random random = new Random();
-	        int year = 2023;
-	        int month = random.nextInt(12) + 1; // 1 to 12
-	        int day = random.nextInt(31) + 1; // 1 to 31 (simple approach, not considering varying days in a month)
-
-	        int hour = random.nextInt(24); // 0 to 23
-	        int minute = random.nextInt(60); // 0 to 59
-	        int second = random.nextInt(60); // 0 to 59
-
-	        // Note: This constructor is deprecated, but it works for demonstration purposes.
-	        @SuppressWarnings("deprecation")
-	        Date date = new Date(year - 1900, month - 1, day, hour, minute, second);
-	        return date;
-	    }
-
-	private static String generateUserId() {
-		Random random = new Random();
-		char letter = (char) ('A' + random.nextInt(26)); // Generate a random English letter
-		int number = random.nextInt(1_000_000_000); // Generate 9 random digits
-		return String.format("%s%09d", letter, number);
-	}
 
 
 
@@ -175,6 +127,24 @@ public class ManagerController {
 		model.addAttribute("age3", dao.findUserAgeList().get(2));// 40-49
 		model.addAttribute("age4", dao.findUserAgeList().get(3));// 50-59
 		model.addAttribute("age5", dao.findUserAgeList().get(4));// 60
+		
+		
+		
+		
+//		result.add(rs.getInt("2023-1"));
+//		result.add(rs.getInt("2023-2"));
+//		result.add(rs.getInt("2023-3"));
+//		result.add(rs.getInt("2023-4"));
+//		result.add(rs.getInt("2023-5"));
+//		result.add(rs.getInt("2023-6"));
+//		result.add(rs.getInt("2023-7"));
+//		result.add(rs.getInt("2023-8"));
+//		result.add(rs.getInt("2023-9"));
+//		result.add(rs.getInt("2023-10"));
+//		result.add(rs.getInt("2023-11"));
+//		result.add(rs.getInt("2023-12"));
+//		result.add(rs.getInt("2024-1"));
+		
 
 		if (manager.getLevelId().equals(1)) {
 			model.addAttribute("pendingItemCount", dao.getPendingCount());
@@ -182,5 +152,54 @@ public class ManagerController {
 		}
 		return "manager/reportpage";
 	}
+	
+	@GetMapping("/add/10")
+	@ResponseBody
+	public String addUser() {
+		Faker faker = new Faker();
+		Random random = new Random();
+		for (int i = 0; i <= 10; i++) {
+			User user = new User();
 
+			String userId = generateUserId();
+			
+			user.setUsername(faker.name().fullName());
+			user.setUserId(userId);
+			user.setPassword(faker.internet().password());
+			user.setEmail(faker.internet().emailAddress());
+			user.setBirth(faker.date().birthday());
+			user.setSexId(random.nextInt(2)+1); // Assuming 0 for male, 1 for female
+			user.setTypeId(random.nextInt(3)+1);
+			
+			 user.setRegistDate(generateRandomDateIn2023());
+
+            System.out.println(user);
+            userdao.addUser(user);
+		} 
+		
+		return "ok";
+	}
+	
+	   private static Date generateRandomDateIn2023() {
+	        Random random = new Random();
+	        int year = 2023;
+	        int month = random.nextInt(12) + 1; // 1 to 12
+	        int day = random.nextInt(31) + 1; // 1 to 31 (simple approach, not considering varying days in a month)
+
+	        int hour = random.nextInt(24); // 0 to 23
+	        int minute = random.nextInt(60); // 0 to 59
+	        int second = random.nextInt(60); // 0 to 59
+
+	        // Note: This constructor is deprecated, but it works for demonstration purposes.
+	        @SuppressWarnings("deprecation")
+	        Date date = new Date(year - 1900, month - 1, day, hour, minute, second);
+	        return date;
+	    }
+
+	private static String generateUserId() {
+		Random random = new Random();
+		char letter = (char) ('A' + random.nextInt(26)); // Generate a random English letter
+		int number = random.nextInt(1_000_000_000); // Generate 9 random digits
+		return String.format("%s%09d", letter, number);
+	}
 }
