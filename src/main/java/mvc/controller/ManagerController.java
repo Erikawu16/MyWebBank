@@ -67,7 +67,7 @@ public class ManagerController {
 
             System.out.println(user);
             userdao.addUser(user);
-		}
+		} 
 		
 		return "ok";
 	}
