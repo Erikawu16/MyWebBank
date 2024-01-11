@@ -97,35 +97,13 @@ form {
 			<div class="d-flex justify-content-center mt-3">
 				<button class="btn btn-primary" type="submit">登入</button>
 			</div>
-					<div style="color: red">${ loginMessage }</div>
+		<div style="color: red">${loginMessage}</div>
 		</form>
 	</div>
 </body>
 </html>
 
-<script type="text/javascript">
-	//Example starter JavaScript for disabling form submissions if there are invalid fields
-	(function() {
-		'use strict'
 
-		// Fetch all the forms we want to apply custom Bootstrap validation styles to
-		var forms = document.querySelectorAll('.needs-validation')
-
-		// Loop over them and prevent submission
-		Array.prototype.slice.call(forms).forEach(function(form) {
-			form.addEventListener('submit', function(event) {
-				if (!form.checkValidity()) {
-					event.preventDefault()
-					event.stopPropagation()
-				}
-
-				form.classList.add('was-validated')
-			}, false)
-		})
-	})()
-	
-	
-</script>
 
 
 

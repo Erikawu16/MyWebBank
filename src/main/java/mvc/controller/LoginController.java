@@ -37,6 +37,7 @@ import mvc.dao.DataDao;
 import mvc.dao.ManagerDao;
 import mvc.dao.UserDao;
 import mvc.enums.LoginStatus;
+import mvc.enums.UserDataCheck;
 import mvc.service.LoginService;
 import mvc.service.LoginServiceImpl;
 import mvc.util.GMail;
@@ -51,95 +52,52 @@ public class LoginController {
 
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
 	private ManagerDao managerDao;
 
 	@Autowired
 	private LoginService loginService;
-	
-	@GetMapping("/getcode")
-	private void getCodeImage(HttpSession session, HttpServletResponse response) throws IOException {
-		// 產生一個驗證碼 code
-		Random random = new Random();
-		String code1 = String.format("%c", (char) (random.nextInt(26) + 65));
-		String code2 = String.valueOf(random.nextInt(10));
-		String code3 = String.format("%c", (char) (random.nextInt(26) + 65));
-		String code4 = String.valueOf(random.nextInt(10));
 
-		String code = code1 + code2 + code3 + code4;
-		session.setAttribute("code", code);
-
-		// Java 2D 產生圖檔
-		// 1. 建立圖像暫存區
-		BufferedImage img = new BufferedImage(200, 80, BufferedImage.TYPE_INT_BGR);
-		// 2. 建立畫布
-		Graphics g = img.getGraphics();
-		// 3. 設定顏色
-		g.setColor(Color.LIGHT_GRAY);
-		// 4. 塗滿背景
-		g.fillRect(0, 0, 200, 80);
-		// 5. 設定文字顏色
-		g.setColor(Color.WHITE);
-		// 6. 設定自型
-		g.setFont(new Font("新細明體", Font.PLAIN, 50));
-		// 7. 繪字串
-		g.drawString(code, 60, 55); // code, x, y
-		// 8. 干擾線
-		g.setColor(Color.WHITE);
-		for (int i = 0; i < 15; i++) { // 增加干擾線的數量為 15 條
-			int x1 = random.nextInt(200); // 使干擾線跨越整個圖像的寬度
-			int y1 = random.nextInt(80); // 使干擾線跨越整個圖像的高度
-			int x2 = random.nextInt(200); // 使干擾線跨越整個圖像的寬度
-			int y2 = random.nextInt(80); // 使干擾線跨越整個圖像的高度
-			g.drawLine(x1, y1, x2, y2);
-		}
-
-		// 設定回應類型
-		response.setContentType("image/png");
-
-		// 將影像串流回寫給 client
-		ImageIO.write(img, "PNG", response.getOutputStream());
-	}
-
-	@ApiOperation("登入首頁")
 	// 登入首頁
 	@GetMapping(value = { "/login", "/", "/login/" })
 	public String loginPage(Model model) {
-		// 更新匯率表
-		dataDao.updateCurrency();
-		// 日幣
-		model.addAttribute("currencyJPY", userDao.getCurrencyById(4).get());
-		// 美金
-		model.addAttribute("currencyUSD", userDao.getCurrencyById(2).get());
-		// 人民幣
-		model.addAttribute("currencyCNY", userDao.getCurrencyById(10).get());
+		model.addAttribute("currencyJPY", loginService.getHomePageJPY());
+		model.addAttribute("currencyUSD",loginService.getHomePageUSD());
+		model.addAttribute("currencyCNY", loginService.getHomePageCNY());
+		;
 		return "login";
 	}
 
-	@PostMapping("/login")
-	public String customerlogin(@RequestParam("userId") String userId, @RequestParam("password") String password,@RequestParam("code") String code, 
-			HttpSession session, Model model) throws Exception {
+	// 產生一個驗證碼 code
+	@GetMapping("/getcode")
+	private void getCodeImage(HttpSession session, HttpServletResponse response) throws IOException {
+		loginService.getCodeImage(session, response);
+	}
 
-		LoginStatus loginStatus = loginService.isValidUser(userId, password, code,session.getAttribute("code")+"");
-		
-		if(loginStatus == LoginStatus.SUCCESS) {
+	@PostMapping("/login")
+	public String customerlogin(@RequestParam("userId") String userId, @RequestParam("password") String password,
+			@RequestParam("code") String code, HttpSession session, Model model) throws Exception {
+
+		LoginStatus loginStatus = loginService.isValidUser(userId, password, code, session.getAttribute("code") + "");
+
+		if (loginStatus == LoginStatus.SUCCESS) {
 			User user = userDao.findUserByUserId(userId).get();
 			session.setAttribute("user", user); // 將 user 物件放入到 session 變數中
 			return "redirect:/mvc/mybank/customer/myaccount"; // OK, 導向前台首頁
-		} else if(loginStatus == LoginStatus.CODE_ERROR) {
-		    model.addAttribute("loginMessage", "驗證碼錯誤");
-		} else if(loginStatus == LoginStatus.PASSWORD_ERROR) {
+		} else if (loginStatus == LoginStatus.CODE_ERROR) {
+			model.addAttribute("loginMessage", "驗證碼錯誤");
+		} else if (loginStatus == LoginStatus.PASSWORD_ERROR) {
 			model.addAttribute("loginMessage", "密碼錯誤");
-		} else if(loginStatus == LoginStatus.IN_REVIEW) {
+		} else if (loginStatus == LoginStatus.IN_REVIEW) {
 			model.addAttribute("loginMessage", "此帳號尚未審核通過");
-		} else if(loginStatus == LoginStatus.NO_USER){
+		} else if (loginStatus == LoginStatus.NO_USER) {
 			model.addAttribute("loginMessage", "無此使用者");
 		}
 		session.invalidate();
 		return "/login";
 	}
-	
+
 	// 會員登出處理
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
@@ -153,48 +111,39 @@ public class LoginController {
 		return "manager/login_manager";
 	}
 
-	// 後台登入處理(缺帳密驗證)
+	// 後台登入處理
 	@PostMapping("/login_manager")
-	public String managerlogin(@RequestParam("managername") String managername,
+	public String managerLogin(@RequestParam("managername") String managername,
 			@RequestParam("password") String password, HttpSession session, Model model) {
-		Optional<Manager> managerOpt = managerDao.findManagerByManagerName(managername);
-		if (managerOpt.isPresent()) {
-			Manager manager = managerOpt.get();
-			if (manager.getPassword().equals(password)) {
-				session.setAttribute("manager", manager);
-				return "redirect:/mvc/mybank/manager/pending";
-			} else {
-				session.invalidate(); // session 過期失效
-				model.addAttribute("loginMessage", "密碼錯誤");
-				return "/manager/login_manager";
-			}
-		} else {
-			session.invalidate(); // session 過期失效
-			model.addAttribute("loginMessage", "無此使用者");
-			return "/manager/login_manager";
+		LoginStatus managerLoginStatus = loginService.isValidManager(managername, password);
+		if (managerLoginStatus == LoginStatus.SUCCESS) {
+			Manager manager = managerDao.findManagerByManagerName(managername).get();
+			session.setAttribute("manager", manager);
+			return "redirect:/mvc/mybank/manager/pending";
+
+		} else if (managerLoginStatus == LoginStatus.NO_USER) {
+			model.addAttribute("loginMessage", "無此員工");
+		} else if (managerLoginStatus == LoginStatus.PASSWORD_ERROR) {
+			model.addAttribute("loginMessage", "密碼錯誤");
 		}
+		session.invalidate();
+		return "/manager/login_manager";
 	}
 
 	// 切換註冊頁面
 	@GetMapping("/regist")
 	public String regist(@ModelAttribute User user, Model model) {
-		addBasicModel(model);
+		loginService.addBasicModel(model);
 		return "regist/regist_page";
 	}
 
 	// 註冊功能
 	@PostMapping("/regist")
 	public String registuser(@Valid User user, BindingResult result, Model model) throws Exception {
-
-		if (result.hasErrors()) {
-			addBasicModel(model);
-			model.addAttribute("user", user);
-			return "/regist/regist_page";
+		if (loginService.isRegistDataPass(user, result, model)) {
+			return "redirect:/mvc/mybank/finish";
 		}
-
-		userDao.addUser(user);
-
-		return "redirect:/mvc/mybank/finish";
+		return "/regist/regist_page";
 	}
 
 	// 進入註冊完成介面
@@ -209,61 +158,30 @@ public class LoginController {
 		return "/regist/forgot_password";
 	}
 
-	// 發送otp與進入otp密碼頁面
+	// 發送OTP與進入OTP密碼頁面
 	@PostMapping("/otpcomfirm")
 	public String otpcomfirm(@RequestParam("userId") String userId, @RequestParam("email") String email, Model model) {
-		SecureRandom secureRandom = new SecureRandom();
-		int number = secureRandom.nextInt(1000000);
-		String OTPcode = String.format("%06d", number);
-		Optional<User> userOpt = userDao.findUserByUserId(userId);
-		if (userOpt.isPresent()) {
-			User user = userOpt.get();
-			if (email.equals(user.getEmail())) {
-				// 发送驗證碼
-				GMail mail = new GMail("np93021233@gmail.com", "saca zpxf fdbf opiy");
-				mail.from("np93021233@gmail.com").to(user.getEmail()).personal("MyBank商業銀行").subject("MyBank驗證碼信件")
-						.context("親愛的客戶您好，您的驗證碼為【 " + OTPcode + " 】登入後請盡速至會員專區更改新密碼，謝謝您!").send();
-
-				model.addAttribute("userId", user.getUserId());
-				model.addAttribute("OTPcode", OTPcode);
-
-				return "/regist/forgot_password_login";
-
-			} else {
-				model.addAttribute("errorMessage", "信箱錯誤");
-				return "/regist/forgot_password";
-			}
-		} else {
+		UserDataCheck emailCheck = loginService.isEmailValid(userId, email);
+		if (emailCheck == UserDataCheck.SUCCESS) {
+			loginService.sendOTP(userId);
+			return "/regist/forgot_password_login";
+		} else if (emailCheck == UserDataCheck.EMAIL_ERROR) {
+			model.addAttribute("errorMessage", "信箱錯誤");
+		} else if (emailCheck == UserDataCheck.NO_USER) {
 			model.addAttribute("errorMessage", "無此用戶");
-			return "/regist/forgot_password";
 		}
-
+		return "/regist/forgot_password";
 	}
 
-	// otp密碼必對後登入
+	// OTP密碼必對後登入
 	@PostMapping("/otpsend")
 	public String otpsend(@RequestParam("userId") String userId, @RequestParam("validcode") String validcode,
 			@RequestParam("OTPcode") String OTPcode, Model model, HttpSession session) {
-
-		if (validcode.equals(OTPcode)) {
-			Optional<User> userOpt = userDao.findUserByUserId(userId);
-			User user = userOpt.get();
-			session.setAttribute("user", user); // 將 user 物件放入到 session 變數中
+		if (loginService.isOTPValidUser(validcode, OTPcode)) {
+			User user = userDao.findUserByUserId(userId).get();
+			session.setAttribute("user", user);
 			return "redirect:/mvc/mybank/customer/myaccount";
 		}
 		return "/regist/forgot_password_login";
 	}
-
-	// 註冊會員基本資料
-	private void addBasicModel(Model model) {
-		List<SexData> sexs = dataDao.findAllSexDatas();
-		List<StatusData> status = dataDao.findAllStatusDatas();
-		List<TypeData> types = dataDao.findAllTypeDatas();
-
-		// 將資料傳給 jsp
-		model.addAttribute("status", status);
-		model.addAttribute("sexs", sexs);
-		model.addAttribute("types", types);
-	}
-
 }

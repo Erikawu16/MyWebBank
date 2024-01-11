@@ -17,10 +17,6 @@ import mvc.bean.User;
 public interface UserDao {
 	
 
-
-		
-	
-	
 	
 	// 1.註冊會員
 	int addUser(User user);
