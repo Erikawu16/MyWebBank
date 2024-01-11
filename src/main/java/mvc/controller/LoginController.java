@@ -123,7 +123,7 @@ public class LoginController {
 //		}
 
 // 根據 username 查找 user 物件
-		Optional<User> userOpt = userDao.findUserByUserId(userId);
+		Optional<User> userOpt = userDao.findUserByUserId(userId); 
 
 		if (userOpt.isPresent()) {
 			User user = userOpt.get();
