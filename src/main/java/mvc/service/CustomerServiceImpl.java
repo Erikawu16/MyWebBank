@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private UserDao userDao;
 	@Autowired
-	private ManagerDao managerDao;
+	private ManagerDao managerDao; 
 
 	@Override
 	public List<Map<String, Object>> findAccountList(HttpSession session) {
