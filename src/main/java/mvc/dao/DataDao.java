@@ -19,6 +19,4 @@ public interface DataDao {
 	Optional<StatusData> getStatusDataById(Integer id);
 	
 
-	void updateCurrency();
-	
 }
