@@ -1,4 +1,4 @@
-
+專題網址: http://52.64.144.115:8080//MyWebBank/mvc/mybank/login
 【系統架構】
 
 以JAVA SpringMVC為基礎，透過controller進行路徑導向，Service層進行商業邏輯判斷，Repository向資料庫進行增加刪改查的動作， 再將結果返回至controller，並將資料渲染到JSP頁面，透過前端(HTML/CSS/JS/Bootstrap/GoogleChart...等技術)進行資料美化後返回給用戶端。
@@ -7,7 +7,8 @@
 
 此專題還利用JavaMail API 結合OTP隨機驗證碼，撰寫忘記密碼功能，雙驗證讓用戶使用上多一層保障。
 
-最後利用AOP技術將全域的Exception進行追蹤，以提升系統的穩定性和維護性。
+再利用AOP技術將全域的Exception進行追蹤，以提升系統的穩定性和維護性，最後將整體專案利用AWS部屬到雲端。
+http://52.64.144.115:8080//MyWebBank/mvc/mybank/login
 
 【專題特色】
 
