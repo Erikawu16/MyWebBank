@@ -33,9 +33,10 @@
 	flex-direction: column;
 }
 
-
 .page-title {
-margin-top: 100px;}
+	margin-top: 100px;
+}
+
 h1 {
 	text-align: center;
 	margin-bottom: 30px;
@@ -101,9 +102,9 @@ th {
 								pattern="yyyy-MM-dd" /></td>
 					</tr>
 					<tr>
-						<td>證件照</td>
 						<td><img src="data:image/jpeg;base64,${ user.imgContent }"
-												class="card-img-top flag" alt=""></td>
+							class="card-img-top flag" alt=""
+							style="width: 100px; height: auto;"></td>
 					</tr>
 					<tr>
 						<td>目前持有帳戶</td>

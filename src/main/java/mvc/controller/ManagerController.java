@@ -57,11 +57,12 @@ public class ManagerController {
 	@GetMapping(value = { "/pending" })
 	public String pendingPage(HttpSession session, Model model) {
 		Manager manager = (Manager) session.getAttribute("manager");
+		model.addAttribute("users", managerService.findPengingListPage());
 		if (manager.getLevelId().equals(1)) {
 			model.addAttribute("pendingItemCount", managerService.getPendingCount());
 			return "manager/pendingList";
 		}
-		model.addAttribute("users", managerService.findPengingListPage());
+		
 		return "redirect:passuser";
 	}
 
@@ -69,11 +70,12 @@ public class ManagerController {
 	@GetMapping(value = { "/passuser" })
 	public String passPage(HttpSession session, Model model) {
 		Manager manager = (Manager) session.getAttribute("manager");
+		model.addAttribute("accounts", managerService.findPassListPage());
 		if (manager.getLevelId().equals(1)) {
 			model.addAttribute("pendingItemCount", managerService.getPendingCount());
 			return "manager/memberList";
 		}
-		model.addAttribute("accounts", managerService.findPassListPage());
+		
 		return "manager/memberList";
 	}
 
