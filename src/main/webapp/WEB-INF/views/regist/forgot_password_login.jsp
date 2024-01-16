@@ -72,10 +72,10 @@ form {
 
 
 			<div>
-				<p>驗證碼已發送到您的信箱</p>
+				<p>信箱驗證正確!!驗證碼已發送到您的信箱</p>
+				<p>登入後請盡快更改密碼</p>
 				
-					<input type="text"class="hidden" name="userId" value="${userId}">
-					<input type="text"class="hidden" name="OTPcode"  value="${OTPcode}">
+
 				
 				<label class="form-label">請輸入驗證碼</label> 
 				<input type="text"

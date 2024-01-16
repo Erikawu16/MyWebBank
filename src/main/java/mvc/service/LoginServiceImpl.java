@@ -51,6 +51,8 @@ public class LoginServiceImpl implements LoginService {
 	public LoginStatus isValidUser(String userId, String password, String code, String sessionCode) throws Exception {
 		// 比對驗證碼
 		if (!code.equals(sessionCode)) {
+
+			
 			return LoginStatus.CODE_ERROR;
 		}
 		Optional<User> userOpt = userDao.findUserByUserId(userId);
@@ -60,9 +62,6 @@ public class LoginServiceImpl implements LoginService {
 			SecretKeySpec aesKeySpec = new SecretKeySpec(KEY.getBytes(), "AES");
 			byte[] encryptedPasswordECB = KeyUtil.encryptWithAESKey(aesKeySpec, password);
 			String encryptedPasswordECBBase64 = Base64.getEncoder().encodeToString(encryptedPasswordECB);
-
-			System.out.println(user.getPassword());
-			System.out.println(encryptedPasswordECBBase64);
 
 			if (user.getStatusId() != 2)
 				return LoginStatus.IN_REVIEW;
@@ -86,6 +85,7 @@ public class LoginServiceImpl implements LoginService {
 		String code4 = String.valueOf(random.nextInt(10));
 		String code = code1 + code2 + code3 + code4;
 		session.setAttribute("code", code);
+		
 		// Java 2D 產生圖檔
 		BufferedImage img = new BufferedImage(200, 80, BufferedImage.TYPE_INT_BGR);
 		Graphics g = img.getGraphics();

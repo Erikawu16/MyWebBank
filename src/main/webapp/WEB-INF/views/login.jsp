@@ -19,12 +19,11 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	<style>
-    /* 在你的 CSS 檔案中添加這段代碼 */
-    .custom-btn-width {
-        width: 300px; 
-       
-    }
+<style>
+/* 在你的 CSS 檔案中添加這段代碼 */
+.custom-btn-width {
+	width: 300px;
+}
 </style>
 <link rel="stylesheet" href="/MyWebBank/css/login.css">
 </head>
@@ -173,7 +172,8 @@
 
 
 						<div class="d-flex justify-content-center ">
-							<button type="submit" class="btn btn-primary  mb-3 btn-block custom-btn-width">會員登入</button>
+							<button type="submit"
+								class="btn btn-primary  mb-3 btn-block custom-btn-width">會員登入</button>
 
 						</div>
 
@@ -181,11 +181,13 @@
 
 
 						<div class="d-flex justify-content-center ">
-							<a href="./regist" class="btn btn-primary btn-block custom-btn-width">會員註冊</a>
+							<a href="./regist"
+								class="btn btn-primary btn-block custom-btn-width">會員註冊</a>
 						</div>
 
 						<div class="d-flex justify-content-center my-3 ">
-							<a href="./forgot_password" class="text-decoration-none "><i class="bi bi-question-square-fill"></i> 忘記密碼</a>
+							<a href="./forgot_password" class="text-decoration-none "><i
+								class="bi bi-question-square-fill"></i> 忘記密碼</a>
 						</div>
 						<div style="color: red">${ loginMessage }</div>
 
@@ -199,5 +201,10 @@
 	</div>
 
 
+
+
 </body>
+<script>
+console.log(${sessionCode});
+</script>
 </html>

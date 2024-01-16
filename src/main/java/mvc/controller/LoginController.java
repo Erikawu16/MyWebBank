@@ -65,13 +65,15 @@ public class LoginController {
 		model.addAttribute("currencyJPY", loginService.getHomePageJPY());
 		model.addAttribute("currencyUSD",loginService.getHomePageUSD());
 		model.addAttribute("currencyCNY", loginService.getHomePageCNY());
-		;
+		
+		
 		return "login";
 	}
 
 	// 產生一個驗證碼 code
 	@GetMapping("/getcode")
 	private void getCodeImage(HttpSession session, HttpServletResponse response) throws IOException {
+		
 		loginService.getCodeImage(session, response);
 	}
 
@@ -80,7 +82,9 @@ public class LoginController {
 			@RequestParam("code") String code, HttpSession session, Model model) throws Exception {
 
 		LoginStatus loginStatus = loginService.isValidUser(userId, password, code, session.getAttribute("code") + "");
-
+		model.addAttribute("code", code);
+		model.addAttribute("sessionCode", session.getAttribute("code"));
+		
 		if (loginStatus == LoginStatus.SUCCESS) {
 			User user = userDao.findUserByUserId(userId).get();
 			session.setAttribute("user", user); // 將 user 物件放入到 session 變數中
