@@ -20,7 +20,6 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <style>
-/* 在你的 CSS 檔案中添加這段代碼 */
 .custom-btn-width {
 	width: 300px;
 }
@@ -28,8 +27,6 @@
 <link rel="stylesheet" href="/MyWebBank/css/login.css">
 </head>
 <body style="padding-top: 80 px">
-
-
 
 	<div class="banner banner-container">
 		<img class="banner-img d-block w-100 " src="../../img/banner02.jpg"
@@ -156,15 +153,19 @@
 
 
 						<div class="mb-0">
-							<label for="exampleInputPassword1" class="form-label"></label> <input
+							<label for="password" class="form-label">
+			
+							</label> <input
 								type="password" name="password" class="form-control"
 								id="password" value="123" placeholder="使用者密碼">
 						</div>
 
 						<div class="mb-4 text-center">
-							<label for="code" class="form-label"></label> <input type="text"
+							<label for="code" class="form-label"></label> 
+							<input type="text"
 								id="code" name="code" class="form-control"
 								placeholder="請輸入下方驗證碼">
+								
 							<div class="my-4">
 								<img src="./getcode" alt="驗證碼">
 							</div>
