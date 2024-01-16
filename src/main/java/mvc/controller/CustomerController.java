@@ -100,7 +100,15 @@ public class CustomerController {
 		exchangeBasicModel(model, session);
 		return "customer/excahange";
 	}
-
+//匯率更新按鈕
+	@GetMapping(value = { "/getNewCurrency" })
+	public String getNewCurrency(Model model, HttpSession session) {
+		exchangeBasicModel(model, session);
+		customerService.updateCurrency();
+		return "customer/excahange";
+	}
+	
+	
 	// 換匯確認頁面
 	@PostMapping(value = { "/excahangecomfirm" })
 	public String excahangcomfirm(@RequestParam("moneyOutSelect") Integer moneyOutSelect,
@@ -151,6 +159,8 @@ public class CustomerController {
 
 		return "customer/excahange";
 	}
+	
+	
 
 	// 交易紀錄首頁
 	@GetMapping(value = { "/myrecorder" })

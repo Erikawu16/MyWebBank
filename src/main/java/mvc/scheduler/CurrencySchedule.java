@@ -18,7 +18,7 @@ public class CurrencySchedule {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	@Scheduled(cron = "0 0/30 * * * ?") // Run every half an hour
+	@Scheduled(cron = "0 0/5 * * * ?")// Run every 5 min
     public void syncCurrency() {  
     	try {
             // 連接台灣銀行匯率網頁

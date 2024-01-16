@@ -187,6 +187,15 @@ public class CustomerServiceImpl implements CustomerService {
 		userDao.addUserForeignAccount(user, Foreignaccount);
 		
 	}
+
+	@Override
+	public void updateCurrency() {
+		dataDao.updateCurrency();
+		
+	}
+	
+	
+	
 	
 	
 

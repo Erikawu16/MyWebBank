@@ -18,14 +18,15 @@
 .exange {
 	margin: 20px auto 20px auto;
 }
-.lastsection{
-margin-bottom:80px; 
+
+.lastsection {
+	margin-bottom: 80px;
 }
 </style>
 
 <h2 class="page-title text-center fw-bold mb-3">
 	<i class="bi bi-currency-exchange"></i>我要換匯
-	
+
 </h2>
 
 <div class="text-center" style="color: red">${ successMessage }</div>
@@ -95,9 +96,11 @@ margin-bottom:80px;
 
 
 <%@ include file="../include/currency_table.jspf"%>
-<div class="d-flex justify-content-center mt-5 lastsection">
-	<button type="button" class="btn btn-secondary" onclick="window.location.href='/MyWebBank/mvc/mybank/customer/myexcahange'">取得最新報價</button>
-</div>
+<form action="./getNewCurrency" method="get">
+	<div class="d-flex justify-content-center mt-5 lastsection">
+		<button type="submit" class="btn btn-secondary">取得最新匯率</button>
+	</div>
+</form>
 <%@ include file="../include/header/footer.jspf"%>
 
 <script>

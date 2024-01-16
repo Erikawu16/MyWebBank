@@ -18,5 +18,6 @@ public interface DataDao {
 	List<StatusData> findAllStatusDatas();
 	Optional<StatusData> getStatusDataById(Integer id);
 	
-
+     void updateCurrency() ;
+    
 }
