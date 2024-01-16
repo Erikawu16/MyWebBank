@@ -1,4 +1,5 @@
-專題網址: http://52.64.144.115:8080//MyWebBank/
+專題網址: http://3.26.219.21:8080//MyWebBank/ (本專題部屬在AWS)
+
 【系統架構】
 
 以JAVA SpringMVC為基礎，透過controller進行路徑導向，Service層進行商業邏輯判斷，Repository向資料庫進行增加刪改查的動作， 再將結果返回至controller，並將資料渲染到JSP頁面，透過前端(HTML/CSS/JS/Bootstrap/GoogleChart...等技術)進行資料美化後返回給用戶端。
