@@ -213,6 +213,7 @@ public class CustomerController {
 			model.addAttribute("submitBtnName", "儲存會員資料");
 			// 顯示使用者持有的帳戶
 			model.addAttribute("accountlist", customerService.findAccountList(session));
+			
 			return "customer/member_data_change";
 		} else {
 			model.addAttribute("errorMessage", "沒有此會員");

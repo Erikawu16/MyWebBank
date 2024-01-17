@@ -19,8 +19,6 @@
 	border-radius: 8px;
 }
 
-
-
 .profile-details {
 	display: flex;
 	flex-direction: column;
@@ -72,7 +70,7 @@ th {
 	</h2>
 	<div class="container">
 
-		
+
 		<div class="profile-details">
 			<form method="post" action="./data_change">
 				<input name="_method" type="hidden" value="${ _method }" />
@@ -91,29 +89,27 @@ th {
 					</tr>
 					<tr>
 						<td>請輸入新電子郵件</td>
-						<td><input type="email" name="newEmail" value="${ user.email }"
-							/></td>
+						<td><input type="email" name="newEmail"
+							value="${ user.email }" /></td>
 					</tr>
 					<tr>
 
 						<td>請輸入舊密碼</td>
 						<td><input type="password" name="oldPassword"
-							value="${ user.password }"  /></td>
+							value="${ user.password }" /></td>
 					</tr>
 					<tr>
 						<td>請輸入新密碼</td>
-						<td><input type="password" name="newPasswords"
-							value=""  /></td>
+						<td><input type="password" name="newPasswords" value="" /></td>
 					</tr>
 
 
 					<tr>
 						<td>請再輸入一次新密碼</td>
-						<td><input type="password" name="newPasswords"
-							value="" /></td>
+						<td><input type="password" name="newPasswords" value="" /></td>
 					</tr>
 
-					
+
 					<tr>
 						<td>生日</td>
 						<td><fmt:formatDate value="${ user.birth }"
@@ -130,11 +126,12 @@ th {
 					<tr>
 						<td>目前持有帳戶</td>
 						<td><c:forEach items="${ accountlist }" var="accountlist">
-						${ accountlist.currency.currencyname }
+						${ accountlist.currency_currencyName }
 						</c:forEach></td>
+				
 					</tr>
 				</table>
-				
+
 				<button type="submit" class="btn button-primary">${ submitBtnName }</button>
 				<div style="color: red">${ errorMessage }</div>
 				<div style="color: red">${ sussesMessage }</div>

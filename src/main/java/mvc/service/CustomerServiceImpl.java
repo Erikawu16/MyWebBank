@@ -2,6 +2,7 @@ package mvc.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
@@ -58,8 +59,15 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public String formattedDate() {
-		LocalDateTime currentTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		// 取得台灣時區
+        ZoneId taipeiZone = ZoneId.of("Asia/Taipei");
+
+        // 取得台灣的當地時間
+        LocalDateTime currentTime = LocalDateTime.now(taipeiZone);
+
+        // 指定日期時間格式
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
 		return currentTime.format(formatter);
 	}
 

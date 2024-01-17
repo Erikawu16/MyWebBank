@@ -102,9 +102,10 @@ th {
 								pattern="yyyy-MM-dd" /></td>
 					</tr>
 					<tr>
+					<td>證件</td>
 						<td><img src="data:image/jpeg;base64,${ user.imgContent }"
 							class="card-img-top flag" alt=""
-							style="width: 100px; height: auto;"></td>
+							style="width: 200px; height: auto;"></td>
 					</tr>
 					<tr>
 						<td>目前持有帳戶</td>
