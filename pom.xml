@@ -61,24 +61,18 @@
 
 
 	<properties>
-
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.3.25.RELEASE</spring.version>
 	</properties>
 
 	<dependencies>
-<dependency>
-    <groupId>com.github.javafaker</groupId>
-    <artifactId>javafaker</artifactId>
-    <version>1.0.0</version>
-</dependency>
 
+		<!-- Java對象（POJO）與JSON數據之間的相互轉換 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.13.0</version> <!-- 使用最新版本 -->
+			<version>2.13.0</version>
 		</dependency>
-
 
 		<!-- Swagger -->
 		<dependency>
@@ -92,18 +86,21 @@
 			<version>2.5.0</version>
 		</dependency>
 
+
+		<!-- mail -->
 		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.7</version>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
 		</dependency>
 
-
+		<!-- lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.30</version>
 		</dependency>
+
 		<!-- Hibernate Validator -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -111,6 +108,8 @@
 			<version>5.4.1.Final</version>
 		</dependency>
 
+		<!-- jupiter用于编写更简洁、更具表达力的测试代码 -->
+		<!-- 例如 jupiter5版 提供JAVA8的lamda函式表示法-->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -132,6 +131,8 @@
 			<scope>test</scope>
 		</dependency>
 
+
+		<!-- 將Java EE（Enterprise Edition）Web API引入到您的Java項目中-->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-web-api</artifactId>
@@ -139,30 +140,36 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- 將Yahoo Finance API庫引入到您的Java項目中。-->
 		<dependency>
 			<groupId>com.yahoofinance-api</groupId>
 			<artifactId>YahooFinanceAPI</artifactId>
 			<version>3.15.0</version>
 		</dependency>
 
+		<!-- 將(JSP) 標準標籤庫 (JSTL) 引入到您的Java項目中-->
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>javax.servlet.jsp.jstl</artifactId>
 			<version>1.2.4</version>
 		</dependency>
 
+		<!-- Gson庫引入到您的Java項目中。Gson是Google提供的一個用於處理JSON數據的Java庫-->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.8.6</version>
 		</dependency>
 
+		<!-- Commons IO提供了各種實用的IO工具類，使Java應用程序中的文件操作、流處理等任務更加簡便。
+		例如，它包括了用於文件拷貝、流處理、檔案大小計算等功能的實用工具方法。-->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
 		</dependency>
 
+		<!-- Spring Boot Thymeleaf Starter引入到您的Spring Boot項目中-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -177,17 +184,23 @@
 			<version>8.0.19</version>
 		</dependency>
 		<!-- c3p0 connection pool -->
+		<!-- 。c3p0是一個用於Java應用程序的JDBC連接池實現，
+		它提供了連接池管理、數據庫連接的池化、連接的池狀態監視等功能，
+		有助於提高應用程序對數據庫的性能和可伸縮性。-->
 		<dependency>
 			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.5.5</version>
 		</dependency>
 
+		<!-- Jsoup是一個用於解析HTML文檔的Java庫，它提供了方便的API，
+		使開發者能夠在Java中輕鬆地操作和提取HTML中的數據。 -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.8.3</version>
 		</dependency>
+		
 		<!-- Javafaker -->
 		<dependency>
 			<groupId>com.github.javafaker</groupId>
@@ -195,12 +208,16 @@
 			<version>1.0.2</version>
 		</dependency>
 
+
 		<!-- Simple flat mapper -->
+		<!-- sfm-jdbc模塊用於標準的JDBC操作，而sfm-springjdbc模塊則提供了在Spring框架中使用的功能。 -->
+		<!-- 引入了SimpleFlatMapper庫的JDBC模塊，它提供了將Java對象映射到JDBC結果集和反向映射的功能。 -->
 		<dependency>
 			<groupId>org.simpleflatmapper</groupId>
 			<artifactId>sfm-jdbc</artifactId>
 			<version>8.2.3</version>
 		</dependency>
+		<!-- 引入了SimpleFlatMapper庫的Spring JDBC模塊，用於在Spring應用程序中使用SimpleFlatMapper的功能。 -->
 		<dependency>
 			<groupId>org.simpleflatmapper</groupId>
 			<artifactId>sfm-springjdbc</artifactId>
@@ -301,6 +318,7 @@
 			<artifactId>aopalliance</artifactId>
 			<version>1.0</version>
 		</dependency>
+		
 		<!-- AOP -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -332,12 +350,7 @@
 			<version>1.9.3</version>
 		</dependency>
 
-		<!-- mail -->
-		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>javax.mail</artifactId>
-			<version>1.6.2</version>
-		</dependency>
+
 
 		<!-- Base64 -->
 		<dependency>
