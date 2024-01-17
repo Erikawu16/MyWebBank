@@ -19,7 +19,7 @@
 
 	<mvc:annotation-driven />
  
-
+<!-- 掃描到的component都會被實例化 -->
 	<context:component-scan base-package="mvc" />
 	
 	<!-- Enable Scheduling -->
