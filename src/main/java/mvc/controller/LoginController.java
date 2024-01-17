@@ -13,6 +13,7 @@ import java.util.Random;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import io.swagger.annotations.ApiOperation;
 import mvc.bean.Manager;
@@ -72,9 +74,17 @@ public class LoginController {
 
 	// 產生一個驗證碼 code
 	@GetMapping("/getcode")
-	private void getCodeImage(HttpSession session, HttpServletResponse response) throws IOException {
+	private void getCodeImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		loginService.getCodeImage(session, response);
+		loginService.getCodeImage(request, response);
+	}
+	
+	// 觀察所有的 session 資訊
+	@GetMapping("/sessiondata")
+	@ResponseBody
+	private String getSessionCodeImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+		return "code = " + session.getAttribute("code") + "";
 	}
 
 	@PostMapping("/login")

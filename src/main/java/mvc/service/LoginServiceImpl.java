@@ -13,6 +13,7 @@ import java.util.Random;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -52,7 +53,6 @@ public class LoginServiceImpl implements LoginService {
 		// 比對驗證碼
 		if (!code.equals(sessionCode)) {
 
-			
 			return LoginStatus.CODE_ERROR;
 		}
 		Optional<User> userOpt = userDao.findUserByUserId(userId);
@@ -77,13 +77,15 @@ public class LoginServiceImpl implements LoginService {
 
 	// 取得驗證圖形
 	@Override
-	public void getCodeImage(HttpSession session, HttpServletResponse response) throws IOException {
+	public void getCodeImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Random random = new Random();
 		String code1 = String.format("%c", (char) (random.nextInt(26) + 65));
 		String code2 = String.valueOf(random.nextInt(10));
 		String code3 = String.format("%c", (char) (random.nextInt(26) + 65));
 		String code4 = String.valueOf(random.nextInt(10));
 		String code = code1 + code2 + code3 + code4;
+		
+		HttpSession session = request.getSession();
 		session.setAttribute("code", code);
 		
 		// Java 2D 產生圖檔

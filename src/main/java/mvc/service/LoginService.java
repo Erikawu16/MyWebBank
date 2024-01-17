@@ -3,6 +3,7 @@ package mvc.service;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -22,7 +23,7 @@ public interface LoginService {
 
 	public LoginStatus isValidUser(String userId,String password,String code,String sessionCode) throws Exception;
 	// 產生一個驗證碼 code
-	public void getCodeImage(HttpSession session, HttpServletResponse response) throws IOException;
+	public void getCodeImage(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
 	
 	public Currency getHomePageJPY();

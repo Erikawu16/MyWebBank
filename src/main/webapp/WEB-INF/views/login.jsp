@@ -205,7 +205,5 @@
 
 
 </body>
-<script>
-console.log(${sessionCode});
-</script>
+
 </html>
