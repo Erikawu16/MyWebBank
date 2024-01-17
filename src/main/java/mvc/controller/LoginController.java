@@ -63,19 +63,17 @@ public class LoginController {
 
 	// 登入首頁
 	@GetMapping(value = { "/login", "/", "/login/" })
-	public String loginPage(Model model) {
+	public String loginPage(Model model, HttpSession session) {
 		model.addAttribute("currencyJPY", loginService.getHomePageJPY());
 		model.addAttribute("currencyUSD",loginService.getHomePageUSD());
 		model.addAttribute("currencyCNY", loginService.getHomePageCNY());
-		
-		
+		session.setAttribute("login_flag", "true");
 		return "login";
 	}
 
 	// 產生一個驗證碼 code
 	@GetMapping("/getcode")
 	private void getCodeImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
 		loginService.getCodeImage(request, response);
 	}
 	
@@ -84,7 +82,8 @@ public class LoginController {
 	@ResponseBody
 	private String getSessionCodeImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
-		return "code = " + session.getAttribute("code") + "";
+		return "code = " + session.getAttribute("code") + "\n" + 
+			   "login_flag = " + session.getAttribute("login_flag") + "";
 	}
 
 	@PostMapping("/login")
@@ -92,9 +91,7 @@ public class LoginController {
 			@RequestParam("code") String code, HttpSession session, Model model) throws Exception {
 
 		LoginStatus loginStatus = loginService.isValidUser(userId, password, code, session.getAttribute("code") + "");
-		model.addAttribute("code", code);
-		model.addAttribute("sessionCode", session.getAttribute("code"));
-		
+
 		if (loginStatus == LoginStatus.SUCCESS) {
 			User user = userDao.findUserByUserId(userId).get();
 			session.setAttribute("user", user); // 將 user 物件放入到 session 變數中
