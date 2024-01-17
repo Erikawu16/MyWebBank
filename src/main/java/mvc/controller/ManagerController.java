@@ -58,7 +58,10 @@ public class ManagerController {
 	public String pendingPage(HttpSession session, Model model) {
 		Manager manager = (Manager) session.getAttribute("manager");
 		model.addAttribute("users", managerService.findPengingListPage());
+		model.addAttribute("_method", "PUT");
+		
 		if (manager.getLevelId().equals(1)) {
+		
 			model.addAttribute("pendingItemCount", managerService.getPendingCount());
 			return "manager/pendingList";
 		}
@@ -106,10 +109,10 @@ public class ManagerController {
 
 	// 會員通過功能
 	@PutMapping("/pass/{id}")
-	public String passbtn(@PathVariable("id") Integer id, User user) {
-		managerService.userApprove(id);
-		managerService.addUserAccount(id, user);
-		
+	public String passbtn(@PathVariable("id") Integer id ) {
+		System.out.println(id);
+		User user=userdao.getUserById(id).get();
+		managerService.userApprove(user);
 		return "redirect:/mvc/mybank/manager/pending";
 	}
 

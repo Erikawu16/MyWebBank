@@ -77,7 +77,7 @@
 		<!-- 表單元素 -->
 		<sp:input path="id" type="hidden" />
 
-		<input name="_method" type="hidden" value="${ _method }" />
+		<input name="_method" type="hidden" value="${_method}" />
 
 		<div class="col-md-3 text-center">
 			<label for="username" class="form-label  fs-5 fw-bold">姓名:</label> <br />

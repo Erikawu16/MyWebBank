@@ -61,16 +61,12 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public void userApprove(Integer id) {
-		managerDao.updateUserStatusToPassById(id);
-		
+	public void userApprove(User user) {
+		managerDao.updateUserStatusToPassById(user.getId());
+		managerDao.addUserAccount(user,1);
 	}
 
-	@Override
-	public void addUserAccount(Integer id, User user) {
-		managerDao.addUserAccount(id, user);
-		
-	}
+
 
 	@Override
 	public void userReject(Integer id,String falsereason) {

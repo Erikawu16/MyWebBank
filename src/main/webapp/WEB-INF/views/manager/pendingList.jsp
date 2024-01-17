@@ -81,14 +81,12 @@
 								<div class="row justify-content-center">
 									<div class="col-md-auto">
 										<form method="POST"
-											action="${pageContext.request.contextPath}/mvc/mybank/manager/pass/${ user.id }">
-											<input name="_method" type="hidden" value="PUT" />
+											action="./pass/${ user.id }">
+											<input name="_method" type="hidden" value="${_method}" />
 											<button type="submit" class="btn btn-secondary  btn-block">通過</button>
 										</form>
 									</div>
 									<div class="col-md-auto">
-
-
 
 										<button type="button" class="btn btn-outline-primary"
 											data-bs-toggle="modal" data-bs-target="#falsereasonModal">未通過
@@ -137,7 +135,8 @@
 
 							<div class="modal-dialog">
 								<form method="POST"
-									action="${pageContext.request.contextPath}/mvc/mybank/manager/false/${user.id}">
+									action="./false/${user.id}">
+									<input name="_method" type="hidden" value="${_method}" />
 									<div class="modal-content">
 										<div class="modal-header">
 											<h5 class="modal-title" id="exampleModalLabel">請說明未通過原因</h5>
@@ -154,7 +153,7 @@
 											</div>
 										</div>
 										<div class="modal-footer">
-											<input name="_method" type="hidden" value="PUT" />
+											
 											<button type="submit" class="btn btn-danger">送出</button>
 
 										</div>

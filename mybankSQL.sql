@@ -25,17 +25,17 @@ DROP TABLE IF EXISTS `account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `account` (
-  `accountId` bigint NOT NULL,
+  `accountId` BIGINT PRIMARY KEY DEFAULT (CONVERT(CONCAT(FLOOR(UNIX_TIMESTAMP(NOW()) / 100), LPAD(RAND() * 100, 2, '0')), UNSIGNED)),
   `userId` int DEFAULT NULL,
   `currencyId` int DEFAULT NULL,
   `amount` float DEFAULT '10000',
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`accountId`),
   KEY `userId` (`userId`),
   KEY `currencyId` (`currencyId`),
   CONSTRAINT `account_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`Id`),
   CONSTRAINT `account_ibfk_2` FOREIGN KEY (`currencyId`) REFERENCES `currency` (`currencyid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
