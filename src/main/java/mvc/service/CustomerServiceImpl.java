@@ -74,7 +74,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public List<Currency> findCurrencyLisy() {
 		return userDao.findAllCurrency();
-	}
+	} 
 
 	@Override
 	public Currency getcurrency(Integer currencyId) {
