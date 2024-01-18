@@ -81,9 +81,7 @@
 		</table>
 	</div>
 	<div class="text-center my-5" style="color: red">${ noDataMessage }</div>
-    <div class="text-center report-exp">
-        <button type="button" class="btn btn-secondary">匯出報表</button>
-    </div>
+
 
 </div>
 

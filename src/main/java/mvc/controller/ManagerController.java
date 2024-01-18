@@ -57,8 +57,11 @@ public class ManagerController {
 	@GetMapping(value = { "/pending" })
 	public String pendingPage(HttpSession session, Model model) {
 		Manager manager = (Manager) session.getAttribute("manager");
+		List<User> users = managerService.findPengingListPage();
 		model.addAttribute("users", managerService.findPengingListPage());
 		model.addAttribute("_method", "PUT");
+		model.addAttribute("base64Img", "data:image/jpeg;base64," + users.get(users.size()-1).getImgContent());
+      System.out.println(managerService.findPengingListPage());		
 		
 		if (manager.getLevelId().equals(1)) {
 		

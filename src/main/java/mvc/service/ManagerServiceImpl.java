@@ -34,7 +34,6 @@ public class ManagerServiceImpl implements ManagerService {
 
 	@Override
 	public int getPendingCount() {
-		
 		return managerDao.getPendingCount();
 	}
 

@@ -161,7 +161,7 @@ public class ManagerDaoMySQL implements ManagerDao {
 	// 9.查詢尚未審查的會員ok
 	@Override
 	public List<User> findUncheckUsers() {
-		String sql = "SELECT Id, username, userId, email, password, birth, registDate, sexId, typeIds, statusId ,ImgContent "
+		String sql = "SELECT Id, username, userId, email, password, birth, registDate, sexId, typeIds, statusId ,imgContent "
 				+ "FROM user  WHERE statusId=1 ; ";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class));
 	}
@@ -169,7 +169,7 @@ public class ManagerDaoMySQL implements ManagerDao {
 	// 10.查詢已經審查的會員ok
 	@Override
 	public List<User> findcheckedUsers() {
-		String sql = "SELECT Id, username, userId, email, password, birth, registDate, sexId, typeIds, statusId "
+		String sql = "SELECT Id, username, userId, email, password, birth, registDate, sexId, typeIds, statusId,imgContent"
 				+ "FROM user  WHERE statusId IN (2, 3, 4) ; ";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class));
 

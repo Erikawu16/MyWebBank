@@ -34,22 +34,21 @@
 .cotainer {
 	margin-top: 80px;
 }
-
-
-
 </style>
 
 </head>
 <body>
 
-	
+
 	<div class="cotainer ">
 
 
 		<div class="col w-75 mx-auto">
-		<h2 class="text-center fw-bold"><i class="bi bi-person-fill-add"></i>待審核資料</h2>
-			
-	
+			<h2 class="text-center fw-bold">
+				<i class="bi bi-person-fill-add"></i>待審核資料
+			</h2>
+
+
 			<table class="table text-center">
 				<thead>
 					<tr>
@@ -63,7 +62,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="user" items="${ users }">
+					<c:forEach var="user" items="${ users }" varStatus="stat">
 						<tr>
 							<th scope="row">${ user.id}</th>
 							<td>${ user.username }</td>
@@ -71,17 +70,16 @@
 									pattern="yyyy-MM-dd E" /></td>
 
 							<td>${ user.userId  }</td>
-
+							
 							<td>
 								<button type="button" class="btn btn-outline-primary"
-									data-bs-toggle="modal" data-bs-target="#picModal">明細</button>
+									data-bs-toggle="modal" data-bs-target="#picModal${stat.index}">明細</button>
 							</td>
 
 							<td class="text-center">
 								<div class="row justify-content-center">
 									<div class="col-md-auto">
-										<form method="POST"
-											action="./pass/${ user.id }">
+										<form method="POST" action="./pass/${ user.id }">
 											<input name="_method" type="hidden" value="${_method}" />
 											<button type="submit" class="btn btn-secondary  btn-block">通過</button>
 										</form>
@@ -101,7 +99,7 @@
 
 						</tr>
 						<!-- Modal照片 -->
-						<div class="modal fade" id="picModal" tabindex="-1"
+						<div class="modal fade" id="picModal${stat.index}" tabindex="-1"
 							aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
@@ -113,10 +111,9 @@
 									<div class="modal-body">
 										<!-- 在這裡用迴圈顯示每個 base64 字串對應的圖片 -->
 										<div id="imagePreviews">
-
 											<img src="data:image/jpeg;base64,${ user.imgContent }"
-												class="card-img-top flag" alt="">
-
+												class="card-img-top flag" alt="123"
+												style="width: 200px; height: auto;">
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -134,8 +131,7 @@
 
 
 							<div class="modal-dialog">
-								<form method="POST"
-									action="./false/${user.id}">
+								<form method="POST" action="./false/${user.id}">
 									<input name="_method" type="hidden" value="${_method}" />
 									<div class="modal-content">
 										<div class="modal-header">
@@ -153,7 +149,7 @@
 											</div>
 										</div>
 										<div class="modal-footer">
-											
+
 											<button type="submit" class="btn btn-danger">送出</button>
 
 										</div>
