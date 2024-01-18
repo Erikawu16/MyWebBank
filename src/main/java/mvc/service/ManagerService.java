@@ -25,5 +25,5 @@ public interface ManagerService {
 	List<User> findFalseListPage();
 	void userApprove(User user); 
 	
-	void userReject(Integer id,String falsereason); 
+	void userReject(Integer userId,String falsereason); 
 }

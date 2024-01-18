@@ -68,8 +68,8 @@ public class ManagerServiceImpl implements ManagerService {
 
 
 	@Override
-	public void userReject(Integer id,String falsereason) {
-		managerDao.updateUserStatusToFalseById(id, falsereason);
+	public void userReject(Integer userId,String falsereason) {
+		managerDao.updateUserStatusToFalseById(userId, falsereason);
 		
 	}
 

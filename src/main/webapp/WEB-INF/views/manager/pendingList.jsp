@@ -87,7 +87,7 @@
 									<div class="col-md-auto">
 
 										<button type="button" class="btn btn-outline-primary"
-											data-bs-toggle="modal" data-bs-target="#falsereasonModal">未通過
+											data-bs-toggle="modal" data-bs-target="#falsereasonModal${stat.index}">未通過
 										</button>
 
 
@@ -126,7 +126,7 @@
 
 						<!-- Modal END -->
 						<!-- Modal未通過理由輸入 -->
-						<div class="modal fade" id="falsereasonModal" tabindex="-1"
+						<div class="modal fade" id="falsereasonModal${stat.index}" tabindex="-1"
 							aria-labelledby="exampleModalLabel" aria-hidden="true">
 
 

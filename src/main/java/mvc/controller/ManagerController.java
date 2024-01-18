@@ -61,8 +61,7 @@ public class ManagerController {
 		model.addAttribute("users", managerService.findPengingListPage());
 		model.addAttribute("_method", "PUT");
 		model.addAttribute("base64Img", "data:image/jpeg;base64," + users.get(users.size()-1).getImgContent());
-      System.out.println(managerService.findPengingListPage());		
-		
+      
 		if (manager.getLevelId().equals(1)) {
 		
 			model.addAttribute("pendingItemCount", managerService.getPendingCount());
@@ -122,6 +121,8 @@ public class ManagerController {
 	// 會員未通過功能
 	@PutMapping("/false/{id}")
 	public String falsebtn(@PathVariable("id") Integer id, @RequestParam("falsereason") String falsereason) {
+		System.out.println(id);
+		System.out.println(falsereason);
 		managerService.userReject(id, falsereason);
 		return "redirect:/mvc/mybank/manager/pending";
 	}
