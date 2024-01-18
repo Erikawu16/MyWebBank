@@ -72,6 +72,8 @@ form {
 
 
 			<div>
+		<input type="" class="form-control" name="userId" value="${userId}">
+		<input type="" class="form-control" name="OTPcode" value="${OTPcode}">
 				<p>信箱驗證正確!!驗證碼已發送到您的信箱</p>
 				<p>登入後請盡快更改密碼</p>
 				

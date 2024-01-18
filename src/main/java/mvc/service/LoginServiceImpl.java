@@ -175,15 +175,16 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	// 發送OTP驗證碼
-	public void sendOTP(String userId) {
+	public String sendOTP(String userId) {
 		User user = userDao.findUserByUserId(userId).get();
+		//產生驗證碼並送出
 		SecureRandom secureRandom = new SecureRandom();
 		int number = secureRandom.nextInt(1000000);
 		String OTPcode = String.format("%06d", number);
 		GMail mail = new GMail("np93021233@gmail.com", "saca zpxf fdbf opiy");
 		mail.from("np93021233@gmail.com").to(user.getEmail()).personal("MyBank商業銀行").subject("MyBank驗證碼信件")
 				.context("親愛的客戶您好，您的驗證碼為【 " + OTPcode + " 】登入後請盡速至會員專區更改新密碼，謝謝您!").send();
-
+		return OTPcode ;
 	}
     //利用OTP登入會員
 	public boolean isOTPValidUser(String validcode, String OTPcode) {

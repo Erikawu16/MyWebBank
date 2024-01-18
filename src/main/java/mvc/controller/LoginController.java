@@ -175,6 +175,8 @@ public class LoginController {
 		UserDataCheck emailCheck = loginService.isEmailValid(userId, email);
 		if (emailCheck == UserDataCheck.SUCCESS) {
 			loginService.sendOTP(userId);
+			model.addAttribute("userId", userId);
+			model.addAttribute("OTPcode",loginService.sendOTP(userId));
 			return "/regist/forgot_password_login";
 		} else if (emailCheck == UserDataCheck.EMAIL_ERROR) {
 			model.addAttribute("errorMessage", "信箱錯誤");
@@ -188,10 +190,11 @@ public class LoginController {
 	@PostMapping("/otpsend")
 	public String otpsend(@RequestParam("userId") String userId, @RequestParam("validcode") String validcode,
 			@RequestParam("OTPcode") String OTPcode, Model model, HttpSession session) {
+		
 		if (loginService.isOTPValidUser(validcode, OTPcode)) {
 			User user = userDao.findUserByUserId(userId).get();
-			session.setAttribute("user", user);
-			return "redirect:/mvc/mybank/customer/myaccount";
+			session.setAttribute("user", user); // 將 user 物件放入到 session 變數中
+			return "redirect:/mvc/mybank/customer/myaccount"; // OK, 導向前台首頁
 		}
 		return "/regist/forgot_password_login";
 	}

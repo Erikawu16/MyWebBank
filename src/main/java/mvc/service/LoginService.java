@@ -36,8 +36,7 @@ public interface LoginService {
 	
 	boolean isRegistDataPass(@Valid User user,BindingResult result, Model model) throws Exception;
 	UserDataCheck isEmailValid(String userId,String email ); 
-	public void sendOTP(String userId);
-
-	boolean isOTPValidUser( String validcode,String OTPcode) ;
+	public String sendOTP(String userId);
+	boolean isOTPValidUser( String validcode, String OTPcode) ;
 }
 

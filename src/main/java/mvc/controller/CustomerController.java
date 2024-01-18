@@ -100,6 +100,7 @@ public class CustomerController {
 		exchangeBasicModel(model, session);
 		return "customer/excahange";
 	}
+
 //匯率更新按鈕
 	@GetMapping(value = { "/getNewCurrency" })
 	public String getNewCurrency(Model model, HttpSession session) {
@@ -107,8 +108,7 @@ public class CustomerController {
 		customerService.updateCurrency();
 		return "customer/excahange";
 	}
-	
-	
+
 	// 換匯確認頁面
 	@PostMapping(value = { "/excahangecomfirm" })
 	public String excahangcomfirm(@RequestParam("moneyOutSelect") Integer moneyOutSelect,
@@ -159,8 +159,6 @@ public class CustomerController {
 
 		return "customer/excahange";
 	}
-	
-	
 
 	// 交易紀錄首頁
 	@GetMapping(value = { "/myrecorder" })
@@ -213,7 +211,7 @@ public class CustomerController {
 			model.addAttribute("submitBtnName", "儲存會員資料");
 			// 顯示使用者持有的帳戶
 			model.addAttribute("accountlist", customerService.findAccountList(session));
-			
+
 			return "customer/member_data_change";
 		} else {
 			model.addAttribute("errorMessage", "沒有此會員");
