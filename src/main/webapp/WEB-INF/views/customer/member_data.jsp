@@ -125,7 +125,8 @@ th {
 		<div class="ForeignAccount">
 
 
-			<form method="post" action="./addaccount" class="row g-3 ">
+			<form method="post" action="./addaccount" class="row g-3"
+				onsubmit="return validateForm()">
 
 				<div class="text-center w-75 mx-auto">
 					<ul style="list-style-type: none" class="text-start">
@@ -137,15 +138,30 @@ th {
 				</div>
 
 				<select class="form-select mb-4" aria-label="Default select example"
-					id="moneyOutSelect" name="Foreignaccount">
+					id="Foreignaccount" name="Foreignaccount">
 					<option value="" disabled selected>請選擇帳戶</option>
 					<c:forEach items="${Unregisteredcurrency}" var="currency">
 						<option value="${currency.currencyId}">
 							${currency.currencyname}帳戶</option>
 					</c:forEach>
 				</select>
+
 				<button type="submit" class="btn button-primary">新增外幣帳戶</button>
 			</form>
+
+			<script>
+				function validateForm() {
+					var selectedAccount = document
+							.getElementById("Foreignaccount").value;
+					if (selectedAccount === "") {
+						alert("請選擇帳戶");
+						return false; // 阻止表單提交
+					}
+					// 其他檢查邏輯或處理
+					return true; // 允許表單提交
+				}
+			</script>
+
 		</div>
 	</div>
 	<%@ include file="../include/header/footer.jspf"%>

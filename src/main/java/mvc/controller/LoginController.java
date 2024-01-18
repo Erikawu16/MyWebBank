@@ -13,6 +13,7 @@ import java.util.Random;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import io.swagger.annotations.ApiOperation;
 import mvc.bean.Manager;
@@ -61,18 +63,27 @@ public class LoginController {
 
 	// 登入首頁
 	@GetMapping(value = { "/login", "/", "/login/" })
-	public String loginPage(Model model) {
+	public String loginPage(Model model, HttpSession session) {
 		model.addAttribute("currencyJPY", loginService.getHomePageJPY());
 		model.addAttribute("currencyUSD",loginService.getHomePageUSD());
 		model.addAttribute("currencyCNY", loginService.getHomePageCNY());
-		;
+		session.setAttribute("login_flag", "true");
 		return "login";
 	}
 
 	// 產生一個驗證碼 code
 	@GetMapping("/getcode")
-	private void getCodeImage(HttpSession session, HttpServletResponse response) throws IOException {
-		loginService.getCodeImage(session, response);
+	private void getCodeImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		loginService.getCodeImage(request, response);
+	}
+	
+	// 觀察所有的 session 資訊
+	@GetMapping("/sessiondata")
+	@ResponseBody
+	private String getSessionCodeImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+		return "code = " + session.getAttribute("code") + "\n" + 
+			   "login_flag = " + session.getAttribute("login_flag") + "";
 	}
 
 	@PostMapping("/login")
@@ -164,6 +175,8 @@ public class LoginController {
 		UserDataCheck emailCheck = loginService.isEmailValid(userId, email);
 		if (emailCheck == UserDataCheck.SUCCESS) {
 			loginService.sendOTP(userId);
+			model.addAttribute("userId", userId);
+			model.addAttribute("OTPcode",loginService.sendOTP(userId));
 			return "/regist/forgot_password_login";
 		} else if (emailCheck == UserDataCheck.EMAIL_ERROR) {
 			model.addAttribute("errorMessage", "信箱錯誤");
@@ -177,10 +190,11 @@ public class LoginController {
 	@PostMapping("/otpsend")
 	public String otpsend(@RequestParam("userId") String userId, @RequestParam("validcode") String validcode,
 			@RequestParam("OTPcode") String OTPcode, Model model, HttpSession session) {
+		
 		if (loginService.isOTPValidUser(validcode, OTPcode)) {
 			User user = userDao.findUserByUserId(userId).get();
-			session.setAttribute("user", user);
-			return "redirect:/mvc/mybank/customer/myaccount";
+			session.setAttribute("user", user); // 將 user 物件放入到 session 變數中
+			return "redirect:/mvc/mybank/customer/myaccount"; // OK, 導向前台首頁
 		}
 		return "/regist/forgot_password_login";
 	}

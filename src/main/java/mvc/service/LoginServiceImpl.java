@@ -13,6 +13,7 @@ import java.util.Random;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -51,6 +52,7 @@ public class LoginServiceImpl implements LoginService {
 	public LoginStatus isValidUser(String userId, String password, String code, String sessionCode) throws Exception {
 		// 比對驗證碼
 		if (!code.equals(sessionCode)) {
+
 			return LoginStatus.CODE_ERROR;
 		}
 		Optional<User> userOpt = userDao.findUserByUserId(userId);
@@ -60,9 +62,6 @@ public class LoginServiceImpl implements LoginService {
 			SecretKeySpec aesKeySpec = new SecretKeySpec(KEY.getBytes(), "AES");
 			byte[] encryptedPasswordECB = KeyUtil.encryptWithAESKey(aesKeySpec, password);
 			String encryptedPasswordECBBase64 = Base64.getEncoder().encodeToString(encryptedPasswordECB);
-
-			System.out.println(user.getPassword());
-			System.out.println(encryptedPasswordECBBase64);
 
 			if (user.getStatusId() != 2)
 				return LoginStatus.IN_REVIEW;
@@ -78,14 +77,17 @@ public class LoginServiceImpl implements LoginService {
 
 	// 取得驗證圖形
 	@Override
-	public void getCodeImage(HttpSession session, HttpServletResponse response) throws IOException {
+	public void getCodeImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Random random = new Random();
 		String code1 = String.format("%c", (char) (random.nextInt(26) + 65));
 		String code2 = String.valueOf(random.nextInt(10));
 		String code3 = String.format("%c", (char) (random.nextInt(26) + 65));
 		String code4 = String.valueOf(random.nextInt(10));
 		String code = code1 + code2 + code3 + code4;
+		
+		HttpSession session = request.getSession();
 		session.setAttribute("code", code);
+		
 		// Java 2D 產生圖檔
 		BufferedImage img = new BufferedImage(200, 80, BufferedImage.TYPE_INT_BGR);
 		Graphics g = img.getGraphics();
@@ -173,15 +175,16 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	// 發送OTP驗證碼
-	public void sendOTP(String userId) {
+	public String sendOTP(String userId) {
 		User user = userDao.findUserByUserId(userId).get();
+		//產生驗證碼並送出
 		SecureRandom secureRandom = new SecureRandom();
 		int number = secureRandom.nextInt(1000000);
 		String OTPcode = String.format("%06d", number);
 		GMail mail = new GMail("np93021233@gmail.com", "saca zpxf fdbf opiy");
 		mail.from("np93021233@gmail.com").to(user.getEmail()).personal("MyBank商業銀行").subject("MyBank驗證碼信件")
 				.context("親愛的客戶您好，您的驗證碼為【 " + OTPcode + " 】登入後請盡速至會員專區更改新密碼，謝謝您!").send();
-
+		return OTPcode ;
 	}
     //利用OTP登入會員
 	public boolean isOTPValidUser(String validcode, String OTPcode) {

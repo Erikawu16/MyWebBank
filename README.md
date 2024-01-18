@@ -1,14 +1,15 @@
+專題網址: http://3.26.219.21:8080/MyWebBank/ (本專題部屬在AWS)
 
 【系統架構】
 
-以JAVA SpringMVC為基礎，透過controller進行路徑導向，Service層進行商業邏輯判斷，Repository向資料庫進行增加刪改查的動作，
-再將結果返回至controller，並將資料渲染到JSP頁面，透過前端(HTML/CSS/JS/Bootstrap/GoogleChart...等技術)進行資料美化後返回給用戶端。
+以JAVA SpringMVC為基礎，透過controller進行路徑導向，Service層進行商業邏輯判斷，Repository向資料庫進行增加刪改查的動作， 再將結果返回至controller，並將資料渲染到JSP頁面，透過前端(HTML/CSS/JS/Bootstrap/GoogleChart...等技術)進行資料美化後返回給用戶端。
 
-另外使用到Scheduler技術，定時向外部資源進行爬蟲後更新資料庫內容，以及利用Spring Security的AES加密技術，讓機敏資料在傳輸時可以多一層保護。
+另外使用到Scheduler技術，定時向外部資源進行爬蟲後更新資料庫內容，凸顯系統與外部資料的整合能力，以及利用AES加密技術，讓機敏資料在傳輸時可以多一層保護。
 
 此專題還利用JavaMail API 結合OTP隨機驗證碼，撰寫忘記密碼功能，雙驗證讓用戶使用上多一層保障。
 
-最後利用AOP技術將全域的Exception進行追蹤，提高開發效率與網站維護性。
+再利用AOP技術將全域的Exception進行追蹤，以提升系統的穩定性和維護性，最後將整體專案利用AWS部屬到雲端。
+
 
 【專題特色】
 

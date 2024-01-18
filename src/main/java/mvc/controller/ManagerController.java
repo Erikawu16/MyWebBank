@@ -57,11 +57,18 @@ public class ManagerController {
 	@GetMapping(value = { "/pending" })
 	public String pendingPage(HttpSession session, Model model) {
 		Manager manager = (Manager) session.getAttribute("manager");
+		List<User> users = managerService.findPengingListPage();
+		model.addAttribute("users", managerService.findPengingListPage());
+		model.addAttribute("_method", "PUT");
+		model.addAttribute("base64Img", "data:image/jpeg;base64," + users.get(users.size()-1).getImgContent());
+      System.out.println(managerService.findPengingListPage());		
+		
 		if (manager.getLevelId().equals(1)) {
+		
 			model.addAttribute("pendingItemCount", managerService.getPendingCount());
 			return "manager/pendingList";
 		}
-		model.addAttribute("users", managerService.findPengingListPage());
+		
 		return "redirect:passuser";
 	}
 
@@ -69,11 +76,12 @@ public class ManagerController {
 	@GetMapping(value = { "/passuser" })
 	public String passPage(HttpSession session, Model model) {
 		Manager manager = (Manager) session.getAttribute("manager");
+		model.addAttribute("accounts", managerService.findPassListPage());
 		if (manager.getLevelId().equals(1)) {
 			model.addAttribute("pendingItemCount", managerService.getPendingCount());
 			return "manager/memberList";
 		}
-		model.addAttribute("accounts", managerService.findPassListPage());
+		
 		return "manager/memberList";
 	}
 
@@ -104,10 +112,10 @@ public class ManagerController {
 
 	// 會員通過功能
 	@PutMapping("/pass/{id}")
-	public String passbtn(@PathVariable("id") Integer id, User user) {
-		managerService.userApprove(id);
-		managerService.addUserAccount(id, user);
-		
+	public String passbtn(@PathVariable("id") Integer id ) {
+		System.out.println(id);
+		User user=userdao.getUserById(id).get();
+		managerService.userApprove(user);
 		return "redirect:/mvc/mybank/manager/pending";
 	}
 

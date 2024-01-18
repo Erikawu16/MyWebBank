@@ -16,8 +16,6 @@ import mvc.enums.ManagerLevel;
 
 public interface ManagerService {
 
-	
-	
 	List<User> findPengingListPage();
 	List<User> findPassListPage();
 	
@@ -25,8 +23,7 @@ public interface ManagerService {
 	User getUserInfor(Integer Id);
 	List<Map<String, Object>>findUserAccount(Integer Id);
 	List<User> findFalseListPage();
-	void userApprove(Integer id); 
+	void userApprove(User user); 
 	
-	void addUserAccount(Integer id, User user);
 	void userReject(Integer id,String falsereason); 
 }

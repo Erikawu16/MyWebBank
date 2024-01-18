@@ -50,6 +50,7 @@ public interface CustomerService {
 
 	boolean isUserOpt(HttpSession session);
 	void addForeignAccount(Integer Foreignaccount, HttpSession session);
+	void updateCurrency();
 
 	
 	

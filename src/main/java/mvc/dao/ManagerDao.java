@@ -35,10 +35,10 @@ public interface ManagerDao {
 	Optional<User> getUserById(Integer id);
 
 	// 4.更新會員狀態(審核通過)
-	int updateUserStatusToPassById(Integer id);
+	int updateUserStatusToPassById(Integer userId);
 
 	// 5.更新會員狀態(審核不通過)
-	int updateUserStatusToFalseById(Integer id,String falsereason);
+	int updateUserStatusToFalseById(Integer userId,String falsereason);
 
 	// 6.查詢所有會員
 	List<User> findAllUsers();
@@ -56,7 +56,7 @@ public interface ManagerDao {
 	List<User> findUncheckUsers();
 
 	// 11.新增台幣帳戶
-	int addUserAccount(Integer id,User user);
+	int addUserAccount(User user,Integer correncyId);
 
 	List<Map<String, Object>> findallAccounts();
 	
